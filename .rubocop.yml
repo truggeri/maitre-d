@@ -1,7 +1,12 @@
 # See https://docs.rubocop.org/rubocop/configuration
 
 AllCops:
-    NewCops: enable
+  Exclude:
+    - "data/**/*"
+    - "db/schema.rb"
+    - "node_modules/**/*"
+    - "vendor/**/*"
+  NewCops: enable
 
 Layout/LineLength:
   Max: 120

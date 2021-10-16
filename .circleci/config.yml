@@ -1,0 +1,91 @@
+version: 2.1
+
+executors:
+  default:
+    working_directory: ~/maitre-d
+    docker:
+      - image: cimg/ruby:3.0.2
+        environment:
+          BUNDLE_JOBS: 3
+          BUNDLE_PATH: vendor/bundle
+          BUNDLE_RETRY: 3
+          BUNDLER_VERSION: 2.2.22
+          RAILS_ENV: test
+
+orbs:
+  ruby: circleci/ruby@1.2.0
+  node: circleci/node@2
+
+jobs:
+  build:
+    executor: default
+    steps:
+      - checkout
+      - ruby/install-deps
+
+  rubocop:
+    executor: default
+    steps:
+      - checkout
+      - ruby/install-deps
+      - ruby/rubocop-check
+
+  rspec:
+    docker:
+      - image: cimg/ruby:3.0.2-node
+        environment:
+          DATABASE_URL: postgres://maitre-d:cipassword1234@localhost:5432/maitre-d_test
+          DB_HOST: 127.0.0.1
+          PG_HOST: 127.0.0.1
+          PGUSER: maitre-d
+      - image: postgres:13.4
+        environment:
+          POSTGRES_USER: maitre-d
+          POSTGRES_DB: maitre-d_test
+          POSTGRES_PASSWORD: "cipassword1234"
+    steps:
+      - checkout
+      - ruby/install-deps
+      - run:
+          name: Wait for the database
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run:
+          name: Setup database
+          command: bundle exec rails db:create db:schema:load --trace
+      - ruby/rspec-test
+
+  webpack:
+    docker:
+      - image: cimg/ruby:3.0.2-node
+        environment:
+          BUNDLE_JOBS: 3
+          BUNDLE_PATH: vendor/bundle
+          BUNDLE_RETRY: 3
+          BUNDLER_VERSION: 2.2.22
+          RAILS_ENV: test
+    steps:
+      - checkout
+      - ruby/install-deps
+      - node/install-packages:
+          pkg-manager: yarn
+          cache-key: "yarn.lock"
+      - run:
+          name: Check webpack
+          command: bundle exec rails webpacker:verify_install
+      - run:
+          name: Webpack compile
+          command: bundle exec rails webpacker:compile
+
+workflows:
+  test: 
+    jobs:
+      - build
+      - rubocop:
+          requires:
+            - build   
+      - rspec:
+          requires:
+            - build 
+      - webpack:
+          requires:
+            - build
