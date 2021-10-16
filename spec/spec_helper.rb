@@ -13,3 +13,9 @@ RSpec.configure do |config|
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
 end
+
+require "simplecov"
+SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new( [ SimpleCov::Formatter::HTMLFormatter ] )
+SimpleCov.start do
+  add_filter( "spec/rails_helper.rb" )
+end
