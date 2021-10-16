@@ -21,6 +21,7 @@ gem "webpacker", "~> 5.0"
 
 group :development, :test do
   gem "byebug", platforms: %i[mri mingw x64_mingw]
+  gem "rspec-rails", "~> 5.0", ">= 5.0.1"
   gem "rubocop", "~> 1.22", ">= 1.22.1"
   gem "rubocop-rails", "~> 2.12", ">= 2.12.4"
   gem "rubocop-rspec", "~> 2.5"
