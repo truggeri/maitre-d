@@ -1,0 +1,19 @@
+# See https://docs.rubocop.org/rubocop/configuration
+
+AllCops:
+    NewCops: enable
+
+Layout/LineLength:
+  Max: 120
+  
+Layout/SpaceInsideArrayLiteralBrackets:
+  EnforcedStyle: "space"
+
+Layout/SpaceInsideParens:
+  EnforcedStyle: "space"
+
+Style/Documentation:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: "double_quotes"
