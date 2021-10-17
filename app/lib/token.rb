@@ -8,8 +8,10 @@ class Token
   def self.secret
     return @secret if defined? @secret
 
-    pem = ENV.fetch( "JWT_RSA_PEM", nil )
-    @secret = OpenSSL::PKey::RSA.new pem if pem.present?
+    pem = ENV.fetch( "JWT_RSA_PEM" ) do
+      raise ArgumentError, "could not load pem"
+    end
+    @secret = OpenSSL::PKey::RSA.new pem
   end
 
   attr_reader :id, :roles
@@ -31,10 +33,11 @@ class Token
   end
 
   def body
+    time = Time.now.utc
     {
       aud: AUDIENCE,
-      exp: 1.hour.from_now.to_i,
-      iat: Time.now.to_i,
+      exp: ( time + 1.hour ).to_i,
+      iat: time.to_i,
       iss: ISSUER,
       jti: id,
       roles: roles,
