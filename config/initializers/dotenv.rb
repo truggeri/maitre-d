@@ -2,5 +2,5 @@
 
 Dotenv.require_keys(
   "DATABASE_URL",
-  "SIGNING_KEY"
+  "JWT_RSA_PEM"
 )

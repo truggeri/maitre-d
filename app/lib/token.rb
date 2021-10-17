@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 class Token
+  AUDIENCE = "public"
   ISSUER = "maitre-d"
   SIGNING_ALG = "RS256"
-  SIGNING_KEY = "JWT_RSA_PEM"
 
   def self.secret
     return @secret if defined? @secret
 
-    pem = ENV.fetch( SIGNING_KEY, nil )
+    pem = ENV.fetch( "JWT_RSA_PEM", nil )
     @secret = OpenSSL::PKey::RSA.new pem if pem.present?
   end
 
@@ -32,7 +32,7 @@ class Token
 
   def body
     {
-      aud: "public",
+      aud: AUDIENCE,
       exp: 1.hour.from_now.to_i,
       iat: Time.now.to_i,
       iss: ISSUER,
