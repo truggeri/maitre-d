@@ -27,7 +27,9 @@
 **/.DS_Store
 
 # env files
-.env.development
+.env.development.local
+.env.test.local
+.env.production.local
 
 # Webpacker
 /public/packs
