@@ -13,15 +13,30 @@ Layout/LineLength:
 
 Layout/SpaceAroundBlockParameters:
   EnforcedStyleInsidePipes: "space"
-  
+
 Layout/SpaceInsideArrayLiteralBrackets:
   EnforcedStyle: "space"
 
 Layout/SpaceInsideParens:
   EnforcedStyle: "space"
 
+Layout/SpaceInsideReferenceBrackets:
+  EnforcedStyle: "space"
+
+Layout/SpaceInsideStringInterpolation:
+  EnforcedStyle: "space"
+
+Metrics/MethodLength:
+  Max: 25
+
 Style/Documentation:
   Enabled: false
 
 Style/StringLiterals:
   EnforcedStyle: "double_quotes"
+
+Style/SymbolArray:
+  EnforcedStyle: "brackets"
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: "consistent_comma"
