@@ -13,6 +13,7 @@ Description to come...
 ## Local Setup
 
 You'll need the following to run the project yourself.
+
 ### PostgreSQL Database
 
 This app uses [PostgreSQL 13](https://www.postgresql.org/docs/13/) for it's datastore. In order to configure one, provide a database URL via an environment variable.
