@@ -26,6 +26,10 @@ Layout/SpaceInsideReferenceBrackets:
 Layout/SpaceInsideStringInterpolation:
   EnforcedStyle: "space"
 
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*_spec.rb"
+
 Metrics/MethodLength:
   Max: 25
 
