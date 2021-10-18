@@ -1,0 +1,23 @@
+<% provide :title, "Roles" %>
+
+<hgroup>
+  <h1><%= content_for :title %></h1>
+  <small>All roles in the system</small>
+</hgroup>
+
+<table role="grid">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Patrons</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @roles.each do | role | %>
+      <tr scope="row">
+        <td><%= link_to role.name, edit_role_path( name: role.name ) %></td>
+        <td><%= role.patrons.count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

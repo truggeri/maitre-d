@@ -1,0 +1,33 @@
+<% provide :title, "Edit Role" %>
+
+<hgroup>
+  <h1><%= content_for :title %></h1>
+  <%= link_to "Go back", roles_path, class: "secondary" %>
+</hgroup>
+
+<%= form_for @resource, url: role_path( name: @resource.name ) do | f | %>
+  <div>
+    <%= f.hidden_field :old_name, value: @resource.name %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <br />
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<hr />
+
+<br />
+<hgroup>
+  <h2>Patrons</h2>
+  <small>Patrons that have this role (<%= @resource.patrons.count %> total)</small>
+</hgroup>
+
+<table role="grid">
+  <tbody>
+    <% @resource.patrons.each do | patron | %>
+      <td><%= patron.external_id %></td>
+      <td></td>
+    <% end %>
+  </tbody>
+</table>
