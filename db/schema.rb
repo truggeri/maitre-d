@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_17_165904) do
+ActiveRecord::Schema.define(version: 2021_10_18_025751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,4 +22,22 @@ ActiveRecord::Schema.define(version: 2021_10_17_165904) do
     t.index ["external_id"], name: "index_patrons_on_external_id", unique: true
   end
 
+  create_table "patrons_roles", id: false, force: :cascade do |t|
+    t.bigint "patron_id", null: false
+    t.bigint "role_id", null: false
+    t.index ["patron_id", "role_id"], name: "index_patrons_roles_on_patron_id_and_role_id", unique: true
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_roles_on_name"
+    t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
+  end
+
+  add_foreign_key "patrons_roles", "patrons"
+  add_foreign_key "patrons_roles", "roles"
 end

@@ -14,5 +14,6 @@
 #  index_patrons_on_external_id  (external_id) UNIQUE
 #
 class Patron < ApplicationRecord
+  rolify
   validates :external_id, presence: true, uniqueness: true, length: { maximum: 255 }
 end
