@@ -6,12 +6,10 @@ class Token
   SIGNING_ALG = "RS256"
 
   def self.secret
-    return @secret if defined? @secret
+    pem = ENV[ "JWT_RSA_PEM" ]
+    return OpenSSL::PKey::RSA.new pem if pem.present?
 
-    pem = ENV.fetch( "JWT_RSA_PEM" ) do
-      raise ArgumentError, "could not load pem"
-    end
-    @secret = OpenSSL::PKey::RSA.new pem
+    raise ArgumentError, "pem nout found"
   end
 
   attr_reader :id, :roles

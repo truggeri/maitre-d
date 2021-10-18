@@ -52,6 +52,13 @@ RSpec.describe "Token" do
           # rubocop:enable Layout/LineLength
         end
       end
+
+      context "when pem not found" do
+        it do
+          allow( ENV ).to receive( :[] ).with( "JWT_RSA_PEM" ).and_return nil
+          expect { Token.secret }.to raise_error ArgumentError
+        end
+      end
     end
   end
 end
