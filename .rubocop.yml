@@ -42,5 +42,8 @@ Style/StringLiterals:
 Style/SymbolArray:
   EnforcedStyle: "brackets"
 
+Style/WordArray:
+  EnforcedStyle: "brackets"
+
 Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: "consistent_comma"
