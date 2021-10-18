@@ -16,6 +16,7 @@ gem "jwt", "~> 2.3"
 gem "pg", "~> 1.1"
 gem "puma", "~> 5.0"
 gem "railties", "~> 6.1.4.1"
+gem "rolify", "~> 6.0"
 gem "sass-rails", ">= 6"
 gem "turbolinks", "~> 5"
 gem "webpacker", "~> 5.0"
@@ -33,6 +34,7 @@ group :development, :test do
 end
 
 group :development do
+  gem "annotate", "~> 3.1", ">= 3.1.1"
   gem "listen", "~> 3.3"
   gem "rack-mini-profiler", "~> 2.0"
   gem "spring"
@@ -40,6 +42,7 @@ group :development do
 end
 
 group :test do
+  gem "shoulda-matchers", "~> 5.0"
   gem "timecop", "~> 0.9.4"
 end
 
