@@ -1,0 +1,7 @@
+<% @error_status = {} %>
+<% if flash[ :error ].present? %>
+  <div class="error-msg">
+    <%= flash[ :error ] %>
+  </div>
+  <% @error_status[ "aria-invalid" ] = true %>
+<% end %>
