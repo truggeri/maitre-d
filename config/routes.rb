@@ -3,7 +3,8 @@
 Rails.application.routes.draw do
   get :health, to: ->( _env ) { [ 200, {}, [ "ok" ] ] }
 
-  get "/", as: "authenticate", to: "authentications#set"
+  get "/login", as: :login_form, to: "auth#login_form"
+  post "/login", as: :login, to: "auth#login"
 
   scope :x do
     resources :roles, param: :name, except: [ :destroy ]
