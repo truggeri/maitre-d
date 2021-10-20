@@ -17,6 +17,12 @@
 class Patron < ApplicationRecord
   rolify
 
+  enum auth_type: {
+    external: "none",
+    email: "email",
+    oauth2: "oauth2",
+  }
+
   has_one :email_auth, dependent: :destroy
 
   validates :external_id, presence: true, uniqueness: true, length: { maximum: 255 }

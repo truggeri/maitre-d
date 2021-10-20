@@ -29,4 +29,17 @@ describe Patron, type: :model do
       expect( subject ).to validate_length_of( :external_id ).is_at_most 255
     end
   end
+
+  describe "enums" do
+    it do
+      expect( subject ).to define_enum_for( :auth_type )
+        .with_values(
+          {
+            external: "none",
+            email: "email",
+            oauth2: "oauth2",
+          }
+        ).backed_by_column_of_type( :enum )
+    end
+  end
 end
