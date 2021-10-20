@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   get "/login", as: :login_form, to: "auth#login_form"
   post "/login", as: :login, to: "auth#login"
+  post "/token/:id", as: :token, to: "auth#token"
 
   scope :x do
     resources :roles, param: :name, except: [ :destroy ]

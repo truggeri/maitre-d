@@ -30,8 +30,10 @@ describe "Auth", type: :request do
   describe "POST /login" do
     subject { post login_path( given_params ) }
 
+    let( :given_type ) { "email" }
+
     before do
-      patron = Patron.create! external_id: "abc"
+      patron = Patron.create! external_id: "abc", auth_type: given_type
       EmailAuth.create! patron: patron, email: "someuser", password: "password1234"
     end
 
@@ -41,6 +43,7 @@ describe "Auth", type: :request do
       it do
         subject
         expect( response ).to have_http_status :bad_request
+        expect( response.cookies ).not_to include "auth_token"
       end
     end
 
@@ -50,6 +53,7 @@ describe "Auth", type: :request do
       it do
         subject
         expect( response ).to have_http_status :unauthorized
+        expect( response.cookies ).not_to include "auth_token"
       end
     end
 
@@ -66,6 +70,70 @@ describe "Auth", type: :request do
         expect( response ).to redirect_to "/"
         expect( response.cookies ).to include( "auth_token" => "a.b.c" )
         expect( EmailAuth.last.last_logged_in_at ).to be_within( 1.minute ).of Time.now.utc
+      end
+
+      context "when auth_type isn't 'email'" do
+        let( :given_type ) { "none" }
+
+        it do
+          subject
+          expect( response ).to have_http_status :unauthorized
+          expect( response.cookies ).not_to include "auth_token"
+        end
+      end
+    end
+  end
+
+  describe "POST /token" do
+    subject { post token_path( id: given_id, token: given_token ) }
+
+    let( :given_id ) { "given_id" }
+    let( :given_token ) { "a-token-for-security" }
+    let( :token_mock ) { instance_double( "Token", to_s: "a.b.c", id: "12345" ) }
+
+    before do
+      allow( Token ).to receive( :new ).and_return token_mock
+    end
+
+    context "when token is bad" do
+      let( :given_token ) { "not-the-right-token" }
+
+      it do
+        subject
+        expect( response ).to have_http_status :unauthorized
+        expect( response.cookies ).not_to include "auth_token"
+      end
+    end
+
+    context "when id not found" do
+      it do
+        subject
+        expect( response ).to have_http_status :not_found
+        expect( response.cookies ).not_to include "auth_token"
+      end
+    end
+
+    context "when id found" do
+      let( :given_type ) { "none" }
+
+      before do
+        Patron.create! external_id: given_id, auth_type: given_type
+      end
+
+      it do
+        subject
+        expect( response ).to redirect_to "/"
+        expect( response.cookies ).to include( "auth_token" => "a.b.c" )
+      end
+
+      context "when patron type is not 'none'" do
+        let( :given_type ) { "email" }
+
+        it do
+          subject
+          expect( response ).to have_http_status :not_found
+          expect( response.cookies ).not_to include "auth_token"
+        end
       end
     end
   end
