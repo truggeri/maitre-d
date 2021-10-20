@@ -64,8 +64,4 @@ class AuthController < ApplicationController
       same_site: :Strict,
     }
   end
-
-  def cookie_name
-    ENV.fetch( "AUTH_COOKIE_NAME", "auth_token" )
-  end
 end
