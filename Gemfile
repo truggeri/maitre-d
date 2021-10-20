@@ -11,6 +11,7 @@ gem "activemodel", "~> 6.1.4.1"
 gem "activerecord", "~> 6.1.4.1"
 gem "activerecord-postgres_enum", "~> 1.6", ">= 1.6.1"
 gem "activesupport", "~> 6.1.4.1"
+gem "bcrypt", "~> 3.1.7"
 gem "bootsnap", ">= 1.4.4", require: false
 gem "jbuilder", "~> 2.7"
 gem "jwt", "~> 2.3"

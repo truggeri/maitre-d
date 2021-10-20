@@ -30,7 +30,12 @@ describe EmailAuth, type: :model do
   describe "validations" do
     it "validates" do
       patron = Patron.create! external_id: "abc"
-      EmailAuth.create! patron: patron, email: "sponge@bob.com"
+      EmailAuth.create!(
+        patron: patron,
+        email: "sponge@bob.com",
+        password: "password1234",
+        password_confirmation: "password1234"
+      )
       expect( subject ).to validate_uniqueness_of( :email ).case_insensitive
       expect( subject ).to allow_value( "TEST-123_456@dev.net" ).for :email
     end
@@ -39,12 +44,38 @@ describe EmailAuth, type: :model do
   describe "before_validates" do
     subject { instance.valid? }
 
-    let( :instance ) { EmailAuth.new patron: patron, email: "PatrickStar@SpongeBob.com" }
+    let( :instance ) do
+      EmailAuth.new(
+        patron: patron,
+        email: "PatrickStar@SpongeBob.com",
+        password: "password1234",
+        password_confirmation: "password1234"
+      )
+    end
     let( :patron ) { Patron.create! external_id: "abc" }
 
     it "downcases email" do
       subject
       expect( instance.email ).to eq "patrickstar@spongebob.com"
+    end
+  end
+
+  describe "#roles" do
+    subject { instance.roles }
+
+    let( :instance ) do
+      EmailAuth.new(
+        patron: patron,
+        email: "PatrickStar@SpongeBob.com",
+        password: "password1234",
+        password_confirmation: "password1234"
+      )
+    end
+    let( :patron ) { Patron.create! external_id: "abc", roles: [ role ] }
+    let( :role ) { Role.create! name: "somerole" }
+
+    it do
+      expect( subject ).to eq [ "somerole" ]
     end
   end
 end

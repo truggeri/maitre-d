@@ -24,12 +24,18 @@ class EmailAuth < ApplicationRecord
   before_validation :downcase_email
 
   belongs_to :patron, optional: false
+  has_secure_password
+  has_secure_password :recovery_password, validations: false
 
   validates :email,
             uniqueness: { case_sensitive: false },
             length: { maximum: 255 },
             allow_nil: true,
             format: { with: /\A[a-zA-Z0-9_\-@.]+\z/ }
+
+  def roles
+    patron.roles.map( &:name )
+  end
 
   private
 
