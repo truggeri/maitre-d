@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class RolesController < ApplicationController
+  before_action -> { authorize_by_cookie( "manage_roles" ) }
   before_action :load_resource, only: [ :edit, :update ]
 
   def index
