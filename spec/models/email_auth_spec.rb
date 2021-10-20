@@ -2,16 +2,23 @@
 
 # == Schema Information
 #
-# Table name: patrons
+# Table name: email_auths
 #
-#  id          :bigint           not null, primary key
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  external_id :string(255)      not null
+#  id                       :bigint           not null, primary key
+#  email                    :string(255)
+#  last_logged_in_at        :datetime
+#  password_digest          :string(255)
+#  recovery_password_digest :string(255)
+#  patron_id                :bigint           not null
 #
 # Indexes
 #
-#  index_patrons_on_external_id  (external_id) UNIQUE
+#  index_email_auths_on_email      (email) UNIQUE
+#  index_email_auths_on_patron_id  (patron_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (patron_id => patrons.id)
 #
 require "rails_helper"
 

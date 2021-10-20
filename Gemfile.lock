@@ -19,6 +19,9 @@ GEM
     activerecord (6.1.4.1)
       activemodel (= 6.1.4.1)
       activesupport (= 6.1.4.1)
+    activerecord-postgres_enum (1.6.1)
+      activerecord (>= 5, < 6.2)
+      pg
     activesupport (6.1.4.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
@@ -194,6 +197,7 @@ DEPENDENCIES
   actionview (~> 6.1.4.1)
   activemodel (~> 6.1.4.1)
   activerecord (~> 6.1.4.1)
+  activerecord-postgres_enum (~> 1.6, >= 1.6.1)
   activesupport (~> 6.1.4.1)
   annotate (~> 3.1, >= 3.1.1)
   bootsnap (>= 1.4.4)

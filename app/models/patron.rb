@@ -5,6 +5,7 @@
 # Table name: patrons
 #
 #  id          :bigint           not null, primary key
+#  auth_type   :enum             default("none"), not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  external_id :string(255)      not null
@@ -16,7 +17,7 @@
 class Patron < ApplicationRecord
   rolify
 
-  has_many :email_auths, dependent: :destroy
+  has_one :email_auth, dependent: :destroy
 
   validates :external_id, presence: true, uniqueness: true, length: { maximum: 255 }
 end

@@ -27,7 +27,7 @@
   <tbody>
     <% @resource.patrons.each do | patron | %>
       <td><%= patron.external_id %></td>
-      <td></td>
+      <td><%= patron.auth_type.humanize %></td>
     <% end %>
   </tbody>
 </table>

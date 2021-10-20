@@ -9,6 +9,7 @@ gem "actionpack", "~> 6.1.4.1"
 gem "actionview", "~> 6.1.4.1"
 gem "activemodel", "~> 6.1.4.1"
 gem "activerecord", "~> 6.1.4.1"
+gem "activerecord-postgres_enum", "~> 1.6", ">= 1.6.1"
 gem "activesupport", "~> 6.1.4.1"
 gem "bootsnap", ">= 1.4.4", require: false
 gem "jbuilder", "~> 2.7"

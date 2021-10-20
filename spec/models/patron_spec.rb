@@ -5,6 +5,7 @@
 # Table name: patrons
 #
 #  id          :bigint           not null, primary key
+#  auth_type   :enum             default("none"), not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  external_id :string(255)      not null
@@ -17,7 +18,7 @@ require "rails_helper"
 
 describe Patron, type: :model do
   describe "relationships" do
-    it { expect( subject ).to have_many :email_auths }
+    it { expect( subject ).to have_one :email_auth }
   end
 
   describe "validations" do
