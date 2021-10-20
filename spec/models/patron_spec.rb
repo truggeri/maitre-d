@@ -16,8 +16,12 @@
 require "rails_helper"
 
 describe Patron, type: :model do
+  describe "relationships" do
+    it { expect( subject ).to have_many :email_auths }
+  end
+
   describe "validations" do
-    it do
+    it "validates external_id" do
       Patron.create! external_id: "a-b-c-d"
       expect( subject ).to validate_presence_of :external_id
       expect( subject ).to validate_uniqueness_of :external_id

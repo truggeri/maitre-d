@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_18_025751) do
+ActiveRecord::Schema.define(version: 2021_10_18_215528) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "email_auths", force: :cascade do |t|
+    t.bigint "patron_id", null: false
+    t.string "email", limit: 255
+    t.string "password_digest", limit: 255
+    t.string "recovery_password_digest", limit: 255
+    t.datetime "last_logged_in_at"
+    t.index ["email"], name: "index_email_auths_on_email", unique: true
+    t.index ["patron_id"], name: "index_email_auths_on_patron_id"
+  end
 
   create_table "patrons", force: :cascade do |t|
     t.string "external_id", limit: 255, null: false
@@ -38,6 +48,7 @@ ActiveRecord::Schema.define(version: 2021_10_18_025751) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
   end
 
+  add_foreign_key "email_auths", "patrons"
   add_foreign_key "patrons_roles", "patrons"
   add_foreign_key "patrons_roles", "roles"
 end

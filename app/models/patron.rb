@@ -15,5 +15,8 @@
 #
 class Patron < ApplicationRecord
   rolify
+
+  has_many :email_auths, dependent: :destroy
+
   validates :external_id, presence: true, uniqueness: true, length: { maximum: 255 }
 end
