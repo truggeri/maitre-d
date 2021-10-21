@@ -31,14 +31,18 @@ module Authorizations
   def token_has_role?( given_token, expected_role )
     body = JWT.decode(
       given_token,
-      OpenSSL::PKey::RSA.new( ENV[ "JWT_RSA_PUB" ] ),
+      public_key,
       true,
-      { algorithm: Token::SIGNING_ALG }
+      { algorithm: Token::SIGNING_ALG, verify_expiration: true }
     )
     return false if body&.size&.zero?
 
     body.first[ "roles" ].include? expected_role
   rescue JWT::DecodeError
     false
+  end
+
+  def public_key
+    OpenSSL::PKey::RSA.new ENV[ "JWT_RSA_PUB" ]
   end
 end
