@@ -84,6 +84,30 @@ describe "Auth", type: :request do
     end
   end
 
+  describe "GET /logout" do
+    subject { get logout_path }
+
+    before do
+      cookies[ "auth_token" ] = "some-value"
+    end
+
+    it do
+      subject
+      expect( response ).to redirect_to "/"
+      expect( response.cookies[ "auth_token" ] ).to eq nil
+    end
+
+    context "when continue path" do
+      subject { get logout_path( continue: "/continue/on" ) }
+
+      it do
+        subject
+        expect( response ).to redirect_to "/continue/on"
+        expect( response.cookies[ "auth_token" ] ).to eq nil
+      end
+    end
+  end
+
   describe "POST /token" do
     subject { post token_path( id: given_id, token: given_token ) }
 
