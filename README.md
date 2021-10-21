@@ -1,7 +1,7 @@
 # Maitre-D
 
 [![Build Badge](https://img.shields.io/circleci/build/github/truggeri/maitre-d/main)](https://circleci.com/gh/truggeri/maitre-d/tree/main)
-![Coverage Badge](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)
+![Coverage Badge](https://img.shields.io/badge/coverage-99%25-brightgreen.svg)
 
 Description to come...
 
@@ -18,6 +18,7 @@ There are a number of configuration choices that allow you to customize your ins
 | --- | --- | -- |
 | `AUTH_COOKIE_NAME` | `auth_token` | The name of the cookie stored when a user logs in. |
 | `DATABASE_URL` | - | A postgresql url. |
+| `HARD_UNAUTH` | `false` | If set to `true`, unauthorized requests will receive a simple 401. Otherwise, unauthorized requests will redirect to the login form.
 | `JWT_RSA_PEM` | - | An RSA 256 PEM private key. |
 | `JWT_RSA_PUB` | - | An RSA 256 public key from the provided private key. |
 | `SECURITY_TOKEN` | - | A secure token that is passed as a param when logging in a user from another platform. This token acts as an api key to allow authentication to happen elsewhere. |

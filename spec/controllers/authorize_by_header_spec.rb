@@ -56,6 +56,18 @@ describe "authorize_by_header", type: :controller do
       subject
       expect( response ).to have_http_status :unauthorized
     end
+
+    context "when not HARD_UNAUTH" do
+      before do
+        allow( ENV ).to receive( :[] ).and_call_original
+        allow( ENV ).to receive( :[] ).with( "HARD_UNAUTH" ).and_return "false"
+      end
+
+      it do
+        subject
+        expect( response ).to redirect_to login_form_path( continue: "/authorize_header" )
+      end
+    end
   end
 
   context "when authorized" do
