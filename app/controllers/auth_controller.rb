@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AuthController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [ :token ]
+  skip_before_action :verify_authenticity_token, only: [ :logout, :token ]
   before_action :normazlie_continue
 
   before_action :verify_login_params, only: [ :login ]
@@ -15,6 +15,11 @@ class AuthController < ApplicationController
   def login
     @user.update! last_logged_in_at: Time.now.utc
     auth_cookie Token.new( id: request.request_id, roles: @user.roles )
+    redirect_to params[ :continue ]
+  end
+
+  def logout
+    cookies[ cookie_name ] = nil
     redirect_to params[ :continue ]
   end
 
