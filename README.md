@@ -10,6 +10,18 @@ Description to come...
 
 [![Docker Badge](https://img.shields.io/badge/-Docker-4b99d4?style=flat&labelColor=2496ED&logo=docker&logoColor=white)](./Dockerfile)
 
+## Configuration
+
+There are a number of configuration choices that allow you to customize your instance of Maitre-D.
+
+| ENV | Default | Description |
+| --- | --- | -- |
+| `AUTH_COOKIE_NAME` | `auth_token` | The name of the cookie stored when a user logs in. |
+| `DATABASE_URL` | - | A postgresql url. |
+| `JWT_RSA_PEM` | - | An RSA 256 PEM private key. |
+| `JWT_RSA_PUB` | - | An RSA 256 public key from the provided private key. |
+| `SECURITY_TOKEN` | - | A secure token that is passed as a param when logging in a user from another platform. This token acts as an api key to allow authentication to happen elsewhere. |
+
 ## Bootstrapping User
 
 In order to manage roles, you must first have a user with permission to manage roles. To create this user,
