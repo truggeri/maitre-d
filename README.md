@@ -10,6 +10,19 @@ Description to come...
 
 [![Docker Badge](https://img.shields.io/badge/-Docker-4b99d4?style=flat&labelColor=2496ED&logo=docker&logoColor=white)](./Dockerfile)
 
+## Bootstrapping User
+
+In order to manage roles, you must first have a user with permission to manage roles. To create this user,
+we have provided a hook based upon two ENV being set upon startup.
+
+| ENV | Description |
+| --- | --- |
+| `SUPERADMIN_USERNAME` | The username/email of the privileged user |
+| `SUPERADMIN_PASSWORD` | The password of the user |
+
+The user is created or updated with the given username and password and is given the "manage_roles" role
+which allows access to the management dashboard.
+
 ## Local Setup
 
 You'll need the following to run the project yourself.
