@@ -26,8 +26,10 @@
 <table role="grid">
   <tbody>
     <% @resource.patrons.each do | patron | %>
-      <td><%= patron.external_id %></td>
-      <td><%= patron.auth_type.humanize %></td>
+      <tr>
+        <td><%= patron.external_id %></td>
+        <td><%= patron.auth_type.humanize %></td>
+      </tr>
     <% end %>
   </tbody>
 </table>
