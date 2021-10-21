@@ -1,7 +1,7 @@
 # Maitre-D
 
 [![Build Badge](https://img.shields.io/circleci/build/github/truggeri/maitre-d/main)](https://circleci.com/gh/truggeri/maitre-d/tree/main)
-![Coverage Badge](https://img.shields.io/badge/coverage-99%25-brightgreen.svg)
+![Coverage Badge](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)
 
 Description to come...
 
