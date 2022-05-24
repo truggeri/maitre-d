@@ -1,0 +1,35 @@
+<% provide :title, "Patron" %>
+
+<h1><%= content_for :title %></h1>
+
+<p>
+  <%= @resource.external_id %> - <small><%= @resource.auth_type.humanize %></small>
+</p>
+
+<h3>Roles</h3>
+
+<table roll="grid">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @resource.roles.each do | role | %>
+      <tr scope="row">
+        <td><%= role.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<hr />
+
+<%= form_with action: :post, url: patron_add_role_path( patron_name: @resource.external_id ) do | f | %>
+  <div>
+    <%= f.label :new_roll %>
+    <%= f.text_field :new_roll %>
+    <br />
+    <%= f.submit %>
+  </div>
+<% end %>

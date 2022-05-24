@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   post "/token/:id", as: :token, to: "auth#token"
 
   scope :x do
+    resources :patrons, param: :name, only: [ :show ] do
+      post :add_role, as: :add_role, to: "patrons#add_role"
+    end
     resources :roles, param: :name, except: [ :destroy ]
   end
 end
