@@ -2,7 +2,7 @@
 
 <hgroup>
   <h1><%= content_for :title %></h1>
-  <%= link_to "Go back", roles_path, class: "secondary" %>
+  <%= link_to "↩ Index", roles_path, class: "secondary" %>
 </hgroup>
 
 <%= form_for @resource, url: role_path( name: @resource.name ) do | f | %>

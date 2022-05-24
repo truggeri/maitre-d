@@ -10,7 +10,9 @@ class AuthController < ApplicationController
   before_action :validate_auth, only: [ :token ]
   before_action :load_patron, only: [ :token ]
 
-  def login_form; end
+  def login_form
+    redirect_to params[ :continue ] if authorizations_in_cookie?
+  end
 
   def login
     @user.update! last_logged_in_at: Time.now.utc
